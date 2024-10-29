@@ -362,6 +362,8 @@ const SubCategory = () => {
             checkboxSelection={false}
             disableRowSelectionOnClick={true}
             sx={{ width: "98%", marginLeft: "19px" }}
+            headerBgColor="#735DA5"
+            headerTextColor="white"
           />
         </Grid>
       </form>
