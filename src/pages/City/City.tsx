@@ -71,7 +71,7 @@ const City: React.FC = () => {
           city: city.city_name,
           city_id: city.city_id,
           country_id: city.country_id,
-          state_id:city.state_id
+          state_id: city.state_id,
         })
       );
       setRows(fetchedCities);
@@ -203,12 +203,16 @@ const City: React.FC = () => {
             message={
               alertInfo.isSuccess ? alertInfo.message : alertInfo.message
             }
-            backgroundColor={alertInfo.isSuccess ? colors.success : colors.error}
+            backgroundColor={
+              alertInfo.isSuccess ? colors.success : colors.error
+            }
             textColor="light"
             duration={2000}
             icon={
               alertInfo.isSuccess ? (
-                <CheckCircle style={{ color: colors.white, fontSize: "24px" }} />
+                <CheckCircle
+                  style={{ color: colors.white, fontSize: "24px" }}
+                />
               ) : (
                 <Cancel style={{ color: colors.white, fontSize: "24px" }} />
               )
@@ -279,7 +283,7 @@ const City: React.FC = () => {
               title="Add"
               type="submit"
               loading={loading}
-              styles={{ marginTop: "30px", backgroundColor: colors.primary}}
+              styles={{ marginTop: "30px", backgroundColor: colors.primary }}
             />
           </Grid>
           <ReusableDataGrid
@@ -290,6 +294,8 @@ const City: React.FC = () => {
             checkboxSelection={false}
             disableRowSelectionOnClick={true}
             sx={{ marginLeft: "40px", width: "95%" }}
+            headerBgColor="#735DA5"
+            headerTextColor="white"
           />
           {deleteOpenModal && (
             <ReusableModal
@@ -311,27 +317,26 @@ const City: React.FC = () => {
               style={{ width: 500 }}
             />
           )}
-         
         </Grid>
       </form>
       {editOpenModal && (
-            <ReusableModal
-              open={editOpenModal}
-              setOpen={setEditOpenModal}
-              heading="Edit City"
-              type="edit"
-              component={
-                <EditCity
-                  data={filterRows}
-                  setAlertInfo={setAlertInfo}
-                  setEditOpenModal={setEditOpenModal}
-                  getCities={fetchCities}
-                  showAlert={showAlert}
-                />
-              }
-              size="lg"
+        <ReusableModal
+          open={editOpenModal}
+          setOpen={setEditOpenModal}
+          heading="Edit City"
+          type="edit"
+          component={
+            <EditCity
+              data={filterRows}
+              setAlertInfo={setAlertInfo}
+              setEditOpenModal={setEditOpenModal}
+              getCities={fetchCities}
+              showAlert={showAlert}
             />
-          )}
+          }
+          size="lg"
+        />
+      )}
     </>
   );
 };

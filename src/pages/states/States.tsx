@@ -35,9 +35,6 @@ const States: React.FC = () => {
       gst: boolean;
     }[]
   >([]);
-  const [submissionSuccess, setSubmissionSuccess] = useState<boolean | null>(
-    null
-  );
   const [alert, showAlert] = useState<any>(false);
   const [alertInfo, setAlertInfo] = useState({ message: "", isSuccess: false });
   const [loading, setLoading] = useState(false);
@@ -46,10 +43,8 @@ const States: React.FC = () => {
   >([]);
   const [selectedCountry, setSelectedCountry] = useState<number | null>(null);
   const [editOpenModal, setEditOpenModal] = useState(false);
-  // const [alertInfo, setAlertInfo] = useState({ message: "", isSuccess: false });
   const [filterRows, setFilterRows] = useState([]);
   const [deleteOpenModal, setOpenDeleteModal] = useState(false);
-  const [data, setData] = useState([]);
 
   useEffect(() => {
     const fetchCountries = async () => {
@@ -60,7 +55,7 @@ const States: React.FC = () => {
           value: country.country_id,
         }));
         setCountries(countryOptions);
-        console.log(countryOptions,"countryOptions");
+        console.log(countryOptions, "countryOptions");
       } catch (error) {
         console.error("Error fetching countries", error);
       }
@@ -81,12 +76,12 @@ const States: React.FC = () => {
           shortName: state.short_name,
           state: state.state_name,
           gst: state.gst,
-          state_id:state.state_id,
-          country_id:state.country_id
+          state_id: state.state_id,
+          country_id: state.country_id,
         })
       );
       setRows(fetchedStates);
-      console.log(fetchedStates,"fetchedStates");
+      console.log(fetchedStates, "fetchedStates");
       console.log(rows, "reows");
     } catch (error) {
       console.error("Error fetching states", error);
@@ -232,12 +227,16 @@ const States: React.FC = () => {
             message={
               alertInfo.isSuccess ? alertInfo.message : alertInfo.message
             }
-            backgroundColor={alertInfo.isSuccess ? colors.success : colors.error}
+            backgroundColor={
+              alertInfo.isSuccess ? colors.success : colors.error
+            }
             textColor="light"
             duration={2000}
             icon={
               alertInfo.isSuccess ? (
-                <CheckCircle style={{ color: colors.white, fontSize: "24px" }} />
+                <CheckCircle
+                  style={{ color: colors.white, fontSize: "24px" }}
+                />
               ) : (
                 <Cancel style={{ color: colors.white, fontSize: "24px" }} />
               )
@@ -339,6 +338,8 @@ const States: React.FC = () => {
             checkboxSelection={false}
             disableRowSelectionOnClick={true}
             sx={{ marginLeft: "9px", width: "95%" }}
+            headerBgColor="#735DA5"
+            headerTextColor="white"
           />
         </Grid>
       </form>

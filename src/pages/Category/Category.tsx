@@ -177,7 +177,9 @@ const Category = () => {
             duration={2000}
             icon={
               submissionSuccess ? (
-                <CheckCircle style={{ color: colors.white, fontSize: "24px" }} />
+                <CheckCircle
+                  style={{ color: colors.white, fontSize: "24px" }}
+                />
               ) : (
                 <Cancel style={{ color: colors.white, fontSize: "24px" }} />
               )
@@ -201,10 +203,7 @@ const Category = () => {
             onClose={() => showAlert(false)}
           />
         )}
-        <Grid
-          container
-          className="category-container"
-        >
+        <Grid container className="category-container">
           <Grid xs={12} md={3} lg={4} sm={4}>
             <InputField
               type="text"
@@ -226,7 +225,7 @@ const Category = () => {
               label="Category Icon"
               name="categoryicon"
               size="sm"
-              style={{  height: "36px", padding: "6px" }}
+              style={{ height: "36px", padding: "6px" }}
               // value={formValues.categoryicon}
               onChange={handleFileChange}
               error={errors.categoryicon}
@@ -251,6 +250,8 @@ const Category = () => {
             checkboxSelection={false}
             disableRowSelectionOnClick={true}
             sx={{ width: "95%" }}
+            headerBgColor="#735DA5"
+            headerTextColor="white"
           />
           {editOpenModal && (
             <ReusableModal

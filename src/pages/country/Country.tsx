@@ -10,15 +10,12 @@ import ReusableDataGrid from "../../components/ReusableDataGrid";
 import { GridColDef } from "@mui/x-data-grid";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { IconButton } from "@mui/material";
 import { CheckCircle, Cancel } from "@mui/icons-material";
 import ReusableModal from "../../components/ReusableModal";
-import EditSubCategory from "../../components/EditSubCategory";
-import DeleteSubCategory from "../../components/DeleteSubCategory";
 import EditCountry from "../../components/EditCountry";
 import DeleteCountry from "../../components/DeleteCountry";
 import { colors } from "../../utils/constants";
-import "../styles.css"
+import "../styles.css";
 const Country: React.FC = () => {
   const [formValues, setFormValues] = useState<any>({
     country: "",
@@ -32,7 +29,6 @@ const Country: React.FC = () => {
   const [alert, showAlert] = useState<any>(false);
   const [loading, setLoading] = useState(false);
   const [rows, setRows] = useState<{ id: number; country: string }[]>([]);
-  const [data, setData] = useState([]);
   const [submissionSuccess, setSubmissionSuccess] = useState<boolean | null>(
     null
   );
@@ -51,7 +47,7 @@ const Country: React.FC = () => {
         />
       ),
     },
-     {
+    {
       field: "actions",
       headerName: "Actions",
       flex: 1,
@@ -81,7 +77,7 @@ const Country: React.FC = () => {
     console.log("Deleting row with ID:", row);
     setOpenDeleteModal(true);
     setFilterRows(row);
-    console.log(filterRows,"filterrows");
+    console.log(filterRows, "filterrows");
   };
 
   const fetchCountries = async () => {
@@ -94,7 +90,7 @@ const Country: React.FC = () => {
             id: index + 1,
             country: country.name,
             countryicon: country.flag,
-            country_id: country.country_id
+            country_id: country.country_id,
           })
         );
         setRows(fetchedCountries);
@@ -180,13 +176,19 @@ const Country: React.FC = () => {
   return (
     <>
       <form onSubmit={handleSubmit}>
-      {alert && (
+        {alert && (
           <Alerts
-          message={alertInfo.isSuccess ? alertInfo.message : alertInfo.message}
-            backgroundColor={alertInfo.isSuccess ? colors.success : colors.error}
+            message={
+              alertInfo.isSuccess ? alertInfo.message : alertInfo.message
+            }
+            backgroundColor={
+              alertInfo.isSuccess ? colors.success : colors.error
+            }
             icon={
               alertInfo.isSuccess ? (
-                <CheckCircle style={{ color: colors.white, fontSize: "24px" }} />
+                <CheckCircle
+                  style={{ color: colors.white, fontSize: "24px" }}
+                />
               ) : (
                 <Cancel style={{ color: colors.white, fontSize: "24px" }} />
               )
@@ -236,10 +238,10 @@ const Country: React.FC = () => {
               label="Country Icon"
               name="countryicon"
               size="sm"
-              style={{  height: "36px", padding: "6px" }}
+              style={{ height: "36px", padding: "6px" }}
               // value={formValues.countryicon}
               onChange={handleFileChange}
-              error={errors?.countryicon }
+              error={errors?.countryicon}
               helperText={errors?.countryicon}
             />
             {/* {errors?.countryicon && (
@@ -254,7 +256,7 @@ const Country: React.FC = () => {
               title="Add"
               type="submit"
               loading={loading}
-              styles={{ backgroundColor:colors.primary }}
+              styles={{ backgroundColor: colors.primary }}
               className="country-btn"
             />
           </Grid>
@@ -266,56 +268,49 @@ const Country: React.FC = () => {
             checkboxSelection={false}
             disableRowSelectionOnClick={true}
             sx={{ marginLeft: "9px", width: "95%" }}
+            headerBgColor="#735DA5"
+            headerTextColor="white"
           />
         </Grid>
       </form>
-      {/* <ReusableDataGrid
-        rows={data}
-        columns={columns}
-        initialPageSize={5}
-        pageSizeOptions={[5, 10, 20]}
-        checkboxSelection={false}
-        disableRowSelectionOnClick={true}
-        sx={{width:"90%",marginLeft:"40px"}}
-      /> */}
-        {editOpenModal && (
-          <ReusableModal
-            open={editOpenModal}
-            setOpen={setEditOpenModal}
-            heading="Edit Country"
-            type="edit"
-            component={
-              <EditCountry
-                data={filterRows}
-                setAlertInfo={setAlertInfo}
-                setEditOpenModal={setEditOpenModal}
-                showAlert={showAlert}
-                fetchCountries={fetchCountries}
-              />
-            }
-            size="lg"
-          />
-        )}
-        {deleteOpenModal && (
-          <ReusableModal
-            open={deleteOpenModal}
-            setOpen={setOpenDeleteModal}
-            type="delete"
-            component={
-              <DeleteCountry
-                data={filterRows}
-                setOpenDeleteModal={setOpenDeleteModal}
-                showAlert={showAlert}
-                fetchCountries={fetchCountries}
-                setAlertInfo={setAlertInfo}
-              />
-            }
-            heading="Are you sure want to delete?"
-            buttonText="Delete"
-            size="lg"
-            style={{ width: 500 }}
-          />
-        )}
+      {editOpenModal && (
+        <ReusableModal
+          open={editOpenModal}
+          setOpen={setEditOpenModal}
+          heading="Edit Country"
+          type="edit"
+          component={
+            <EditCountry
+              data={filterRows}
+              setAlertInfo={setAlertInfo}
+              setEditOpenModal={setEditOpenModal}
+              showAlert={showAlert}
+              fetchCountries={fetchCountries}
+            />
+          }
+          size="lg"
+        />
+      )}
+      {deleteOpenModal && (
+        <ReusableModal
+          open={deleteOpenModal}
+          setOpen={setOpenDeleteModal}
+          type="delete"
+          component={
+            <DeleteCountry
+              data={filterRows}
+              setOpenDeleteModal={setOpenDeleteModal}
+              showAlert={showAlert}
+              fetchCountries={fetchCountries}
+              setAlertInfo={setAlertInfo}
+            />
+          }
+          heading="Are you sure want to delete?"
+          buttonText="Delete"
+          size="lg"
+          style={{ width: 500 }}
+        />
+      )}
     </>
   );
 };

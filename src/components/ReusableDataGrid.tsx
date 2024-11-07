@@ -21,6 +21,8 @@ interface ReusableDataGridProps {
   pagination?: true;
   sx?: any;
   onRowSelectionModelChange?: (selectionModel: GridRowSelectionModel) => void;
+  headerBgColor?: string;
+  headerTextColor?: string;
 }
 
 const ReusableDataGrid: React.FC<ReusableDataGridProps> = ({
@@ -36,6 +38,8 @@ const ReusableDataGrid: React.FC<ReusableDataGridProps> = ({
   pagination = true,
   sx,
   onRowSelectionModelChange,
+  headerBgColor = "#735DA5",
+  headerTextColor = "black",
   ...restProps
 }) => {
   const [paginationModel, setPaginationModel] = React.useState({
@@ -48,7 +52,12 @@ const ReusableDataGrid: React.FC<ReusableDataGridProps> = ({
   };
 
   return (
-    <Box sx={sx}>
+    <Box
+      sx={{
+        width: "100%", // Full width for responsiveness
+        ...sx,
+      }}
+    >
       <DataGrid
         rows={rows}
         columns={columns}
@@ -70,13 +79,44 @@ const ReusableDataGrid: React.FC<ReusableDataGridProps> = ({
         onRowSelectionModelChange={onRowSelectionModelChange}
         sx={{
           "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: "#735DA5 !important",
-            color: "white",
+            backgroundColor: headerBgColor,
+            color: headerTextColor,
+            fontSize: "1rem",
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            position: "relative",
+            minHeight: "50px",
           },
           "& .MuiDataGrid-columnHeaders .MuiDataGrid-columnHeader": {
-            backgroundColor: "#735DA5 !important",
+            transition: "all 0.3s ease-in-out",
+            backgroundColor: headerBgColor,
           },
-          ...sx,
+          "& .MuiDataGrid-columnHeaders .MuiDataGrid-columnHeader:hover": {
+            zIndex: 10,
+            fontSize: "1.2rem",
+            minWidth: "150px",
+          },
+          "& .MuiDataGrid-cell": {
+            whiteSpace: "nowrap",
+            textOverflow: "ellipsis",
+            overflow: "hidden",
+            position: "relative",
+            transition: "all 0.3s ease-in-out",
+          },
+          "& .MuiDataGrid-cell:hover": {
+            zIndex: 10,
+            fontSize: "1.2rem",
+            minWidth: "150px",
+          },
+          "@media (max-width: 600px)": {
+            "& .MuiDataGrid-columnHeaders .MuiDataGrid-columnHeader, & .MuiDataGrid-cell":
+              {
+                fontSize: "0.75rem",
+                minWidth: "80px",
+                textOverflow: "ellipsis",
+              },
+          },
         }}
         {...restProps}
       />
